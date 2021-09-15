@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/typing.css">
+    <link rel="stylesheet" href="styles/additions.css">
+    <link rel="stylesheet" href="styles/chat.css">
+    <script defer src="src/navbar.js"></script>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6775066085021068"
+     crossorigin="anonymous"></script>
+    <title>Snakys</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+
+  <style>
+    #gameScreen{
+      display: none;
+    }
+    #initialScreen{
+      display: none;
+    }
+    #settingsScreen{
+      display: none;
+    }
+    #mobileScreen{
+      display: flex;
+    }
+    #shopScreen{
+      display: none;
+    }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul class="navbar-nav">
+        <li class="logo nav-logo">
+          <a href="#" class="nav-link">
+            <i class="fas fa-bars"></i>
+            <span class="link-text logo-text">Snakys</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-gamepad"></i>
+            <span class="link-text">Play</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="howToPlay" class="nav-link">
+            <i class="far fa-question-circle"></i>
+            <span class="link-text">HowTo</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-book"></i>
+            <span class="link-text">About</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="account" class="nav-link">
+            <i class="fas fa-user"></i>
+            <span class="link-text">Account</span>
+          </a>
+        </li>
+
+        <li class="nav-item" id="themeButton">
+          <a href="#" class="nav-link">
+            <label for="switch-Theme" class="theme-icon"></label>
+            <i class="fas fa-moon"></i>
+            <span class="link-text">Theme</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="toast-wrapper" id="alert">
+      <div class="toast" id="toast">
+        <div class="toast-content">
+          <div class="icon" id="toastIcon"><i class="fas fa-dollar-sign"></i></i></div>
+          <div class="details">
+            <span id="toastTitle">Oh no!</span>
+            <p id="toastSubtitle">Something went wrong :(</p>
+          </div>
+        </div>
+        <div class="close-icon"><i class="fas fa-times"></i></div>
+      </div>
+    </div>
+    <main>
+      <div id="initialScreen" class="">
+        <div>
+          <div class="logo">
+            Play Snakys <span class="badge">Alpha</span>
+          </div>
+          <div>
+            <form autocomplete="off">
+              <input type="text" placeholder="Enter a username" id="gameNameInput"/>
+            </form>
+          </div>
+          <button href="#"
+            type='button'
+            class="btn"
+            id="newGameButton"
+          >
+            Create New Game
+          </button>
+          <div class="logo">OR</div>
+          <form autocomplete="off" class="embed-submit-field" onsubmit="joinGame();return false">
+            <input type="text" placeholder="Enter Game Code" id="gameCodeInput"/>
+          <button
+            type='button'
+            onclick="joinGame()"
+            href="#"
+            id="joinGameButton"
+          >
+            Join Game
+          </button>
+        </form>
+        </div>
+      </div>
+      <div id="mobileScreen">
+        <p class="mobileText">It looks like you're using a mobile device to play SNAKYS.</p>
+        <span class="mobileText">There is currently no mobile input for this game.<br> Sorry :(<br><br></span>
+        <span class="mobileText">You can follow the progress of our game by <a href="https://discord.gg/FrBsykbCP7">joining our discord</a>!</span>
+      </div>
+      <div id="settingsScreen">
+        <span class="settingsText" id="playerCount">0/8</span>
+        <div class="userList" id="userList">
+        </div>
+        <div class="gameCode">
+          <a class="settingsText">Lobby Game Code: <span id="gameCodeDisplay">error</span></a>
+          <button id="HTMLButton" class="btn">Invite others</button>
+        </div>
+        <div class="settingsPrivate">
+          <span id="privateGameDisplay" class="settingsText">Private Game</span>
+          <label class="switch">
+            <input type="checkbox" checked id="privateGameSwitch">
+            <span></span>
+          </label>
+        </div>
+        <div class="readyBtn">
+          <button id="readyUpBtn" class="btn">Ready Up</button>
+          <button id="readiedBtn" class="btn">Ready</button>
+          <button id="startGameBtn" class="btn">Start Game</button>
+        </div>
+      </div>
+      <div id="gameScreen" class="">
+        <div class="roundCountDisplay">
+          <span id="currentRoundCountDisplay" class="settingsText">0</span>
+          <span id="allRoundCountDisplay" class="settingsText">/0</span>
+        </div>
+        <div class="countDown">
+          <span id="countDownNumb-3" class="countDownNumb">3</span>
+          <span id="countDownNumb-2" class="countDownNumb">2</span>
+          <span id="countDownNumb-1" class="countDownNumb">1</span>
+        </div>
+        <div class="roundWinAnimation">
+          <div class="roundVictoryAnimation" id="roundVictoryAnimation">
+            <span id="winPointerNumb" class="roundVictoryNumb">#1</span>
+            <span class="roundVictory" id="roundVictory"><span id="roundPlayerWon">error</span> won the round</span>
+            <div id="winPointer"></div>
+          </div>
+        </div>
+        <div class="roundLoseAnimation">
+          <div id="roundDeathAnimation" class="roundDeathAnimation">
+            <div class="icon">
+              <i class="fas fa-skull-crossbones"></i>
+            </div>
+            <span>You died</span>
+          </div>
+        </div>
+        <div id="roundPlacePoints" class="roundPlacePoints">
+          <span class="roundPlace">You placed <span id="roundPosition">0</span></span>
+          <span class="roundPlace">+<span id="plusPoints">0</span> Points</span>
+          <span class="roundPlace">In total: <span id="totalPoints">0</span> Points</span>
+        </div>
+        <div class="scoreboard" id="scoreboard">
+          <span class="settingsText scoreboardHeader">Scoreboard</span>
+          <div class="userList" id="scoreboardUserList">
+          </div>
+          <div class="rematchBtn">
+            <button id="rematchBtn" class="btn">Rematch</button>
+          </div>
+        </div>
+        <div class="gameDisplay" id="gameDisplay">
+          <canvas id="myCanvas"></canvas>
+          <div id="gameUserList"></div>
+        </div>
+      </div>
+      <div id="shopScreen">
+        <div class="shopInfo">
+          <div class="header">
+            <span class="settingsText"><i class="far fa-clock"></i> <span id="shopCountDown">0</span></span>
+            <span class="settingsText"></span>
+            <span class="settingsText"><i class="far fa-dot-circle"></i> <span id="shopCurrentPoints">0</span> | round <span id="shopCurrentRound">0</span>
+          </div>
+        </div>
+        <div id="item-wrapper">
+          <div class="item-card" id="item-card-1">
+            <h3 class="title" id="card-title-1">Error</h3>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="circle">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <circle class="stroke" cx="60" cy="60" r="50"/>
+              </svg>
+            </div>
+          </div>
+          <div class="item-card" id="item-card-2">
+            <h3 class="title" id="card-title-2">Error</h3>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="circle">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <circle class="stroke" cx="60" cy="60" r="50"/>
+              </svg>
+            </div>
+          </div>
+          <div class="item-card" id="item-card-3">
+            <h3 class="title" id="card-title-3">Error</h3>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="circle">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <circle class="stroke" cx="60" cy="60" r="50"/>
+              </svg>
+            </div>
+          </div>
+          <div class="item-card" id="item-card-4">
+            <h3 class="title" id="card-title-4w">Error</h3>
+            <div class="bar">
+              <div class="emptybar"></div>
+              <div class="filledbar"></div>
+            </div>
+            <div class="circle">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <circle class="stroke" cx="60" cy="60" r="50"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-wrapper">
+          <div class="card g-yellow" id="slowness">
+            <div class="card-header">
+              <i class="fa fa-clock-o"></i>
+              <h3 class="card-title">Slowness <div><i class="far fa-dot-circle"></i> 150</div></h3>
+            </div>
+            <div class="body">
+              <span>Slow yourself down by 0.25 for 5 seconds<br><button class="card__button" id="buy-slowness">Buy Ability</button></span>
+            </div>
+          </div>
+          <div class="card g-blue" id="cubic">
+            <div class="card-header">
+              <i class="fa fa-clock-o"></i>
+              <h3 class="card-title">Cubic turns <div><i class="far fa-dot-circle"></i> 150</div></h3>
+            </div>
+            <div class="body">
+              <span>Turn in a very sharp angle for 5 seconds<br><button class="card__button" id="buy-cubic">Buy Ability</button></span>
+            </div>
+          </div>
+          <div class="card g-purple" id="curve">
+            <div class="card-header">
+              <i class="fa fa-clock-o"></i>
+              <h3 class="card-title">Smaller turning <div><i class="far fa-dot-circle"></i> 150</div></h3>
+            </div>
+            <div class="body">
+              <span>Turn around faster for 5 seconds<br><button class="card__button" id="buy-curve">Buy Ability</button></span>
+            </div>
+          </div>
+          <div class="card .g-green" id="speed">
+            <div class="card-header">
+              <i class="fa fa-clock-o"></i>
+              <h3 class="card-title">Speed boost<div><i class="far fa-dot-circle"></i> 200</div></h3>
+            </div>
+            <div class="body">
+              <span>Boost your own speed x1.25 for 5 seconds<br><button class="card__button" id="buy-speed">Buy Ability</button></span>
+            </div>
+          </div>
+          <div class="card g-turquoise" id="shootholes">
+            <div class="card-header">
+              <i class="fa fa-clock-o"></i>
+              <h3 class="card-title">Shoot holes <div><i class="far fa-dot-circle"></i> 200</div></h3>
+            </div>
+            <div class="body">
+              <span>Clear a line in front of you to pass through<br><button class="card__button" id="buy-shootholes">Buy Ability</button></span>
+            </div>
+          </div>
+          <div class="card .g-pink" id="clear">
+            <div class="card-header">
+              <i class="fa fa-clock-o"></i>
+              <h3 class="card-title">Clear board <div><i class="far fa-dot-circle"></i> 250</div></h3>
+            </div>
+            <div class="body">
+              <span>Clear every line from the board with one wipe<br><button class="card__button" id="buy-clear">Buy Ability</button></span>
+            </div>
+          </div>
+          <div class="card g-dark-green" id="randomdeath">
+            <div class="card-header">
+              <i class="fa fa-clock-o"></i>
+              <h3 class="card-title">Random Death <div><i class="far fa-dot-circle"></i> 500</div></h3>
+            </div>
+            <div class="body">
+              <span>Kill a random player instantly (including you)<br><button class="card__button" id="buy-randomdeath">Buy Ability</button></span>
+            </div>
+          </div>
+          <div class="card g-salmon" id="teleport">
+            <div class="card-header">
+              <i class="fa fa-clock-o"></i>
+              <h3 class="card-title">Player Swap <div><i class="far fa-dot-circle"></i> 500</div></h3>
+            </div>
+            <div class="body">
+              <span>Switch place with a random player<br><button class="card__button" id="buy-teleport">Buy Ability</button></span>
+            </div>
+          </div>
+        </div>
+        <div class="readyUpBtn">
+          <button id="readiedBtn-2" class="btn">Ready</button>
+          <button id="readyUpBtn-2" class="btn">Ready Up</button>
+        </div>
+        <div class="playersReady">
+          <span id="shopPlayersReady"></span>
+        </div>
+      </div>
+      <div id="detect"></div>
+      <div class="container">
+        <div class="chatbox">
+            <div class="chatbox__support global__chat" id="chatbox">
+                <div class="chatbox__header">
+                    <div class="chatbox__content--header">
+                        <h4 class="chatbox__heading--header">Global chat | online <span class="clientCount">0</span></h4>
+                        <p class="chatbox__description--header">Chat with other verified users</p>
+                    </div>
+                </div>
+                <div class="chatbox__messages">
+                    <div id="main-chat">
+
+                    </div>
+                      <div class="messages__item messages__item--typing">
+                          <span class="messages__dot"></span>
+                          <span class="messages__dot"></span>
+                          <span class="messages__dot"></span>
+                      </div>
+                </div>
+                <div class="chatbox__footer">
+                    <form class="chat-form"></form>
+                    <input type="text" placeholder="Write a message...">
+                    <button type="submit" class="chatbox__send--footer">Send</button>
+                </div>
+            </div>
+            <div class="chatbox__button" id="chatbox-button">
+                <button><span>chat</span></button>
+            </div>
+        </div>
+      </div>
+    </main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="src/chat.js"></script>
+    <script src="src/client.js"></script>
+  </body>
+</html>

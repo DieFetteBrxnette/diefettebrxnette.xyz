@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Snakys Account</title>
+		<style>
+		.login-form {
+			width: 300px;
+			margin: 0 auto;
+			font-family: Tahoma, Geneva, sans-serif;
+		}
+		.login-form h1 {
+			text-align: center;
+			color: #4d4d4d;
+			font-size: 24px;
+			padding: 20px 0 20px 0;
+		}
+		.login-form input[type="password"],
+		.login-form input[type="text"] {
+			width: 100%;
+			padding: 15px;
+			border: 1px solid #dddddd;
+			margin-bottom: 15px;
+			box-sizing:border-box;
+		}
+		.login-form input[type="submit"] {
+			width: 100%;
+			padding: 15px;
+			background-color: #535b63;
+			border: 0;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-weight: bold;
+			color: #ffffff;
+		}
+		</style>
+		<script defer src="./src/navbar.js"></script>
+		<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6775066085021068"
+     crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="./styles/main.css">
+	</head>
+	<body>
+		<nav class="navbar">
+			<ul class="navbar-nav">
+				<li class="logo nav-logo">
+					<a href="/" class="nav-link">
+						<i class="fas fa-bars"></i>
+						<span class="link-text logo-text">Snakys</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="/" class="nav-link">
+						<i class="fas fa-gamepad"></i>
+						<span class="link-text">Play</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="/howToPlay" class="nav-link">
+						<i class="far fa-question-circle"></i>
+						<span class="link-text">HowTo</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="#" class="nav-link">
+						<i class="fas fa-book"></i>
+						<span class="link-text">About</span>
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="./account" class="nav-link">
+						<i class="fas fa-user"></i>
+						<span class="link-text">Account</span>
+					</a>
+				</li>
+
+				<li class="nav-item" id="themeButton">
+					<a href="#" class="nav-link">
+						<label for="switch-Theme" class="theme-icon"></label>
+						<i class="fas fa-moon"></i>
+						<span class="link-text">Theme</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="login-form">
+			<h1>Login Form</h1>
+			<form action="auth" method="POST">
+				<input type="text" name="username" placeholder="Username" required>
+				<input type="password" name="password" placeholder="Password" required>
+				<input type="submit">
+			</form>
+		</div>
+	</body>
+</html>

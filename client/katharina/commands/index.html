@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/katharina/fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/katharina/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/katharina/fav/favicon-16x16.png">
+    <link rel="manifest" href="/katharina/fav/site.webmanifest">
+    <link rel="mask-icon" href="/katharina/fav/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katharina | Commands</title>
+    <link rel="stylesheet" href="/katharina/style.css">
+    <link rel="stylesheet" href="commandsstyle.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+  <style>
+    .inputField{
+      opacity: 0;
+    }
+  </style>
+  </head>
+  <body>
+    <div class="nav-wrapper">
+      <nav>
+          <input type="checkbox" id="show-navbar">
+          <label for="show-navbar" class="menu-icon"><i class="fas fa-bars"></i></label>
+          <div class="nav-content">
+            <div class="logo"><a href="/katharina/">Katharina</a></div>
+            <ul class="links">
+              <li><a href="/katharina/">Home</a></li>
+              <li><a href="/katharina/#about">About</a></li>
+              <li><a href="/katharina/#commands">Commands</a></li>
+              <li><a href="/katharina/#partners">Partner</a></li>
+              <li><a href="/katharina/#contact">Contact</a></li>
+            </ul>
+          </div>
+        </nav>
+  </div>
+    <section class="commands-list">
+    <span id="fun">Fun & Games</span>
+      <table class="content-table">
+  			<thead>
+  				<th>Command</th>
+  				<th>Description</th>
+  			</thead>
+  			<tr>
+  				<td>k!joke</td>
+  				<td>Laugh about a random dad-joke</td>
+  			</tr>
+  			<tr>
+  				<td>k!meme</td>
+  				<td>Get a meme from reddit</td>
+  			</tr>
+  			<tr>
+  				<td>k!p [number]</td>
+  				<td>Get an image from the bot's database</td>
+  			</tr>
+        <tr>
+  				<td>k!lovecalc [User1] [User2]</td>
+  				<td>Claculate the love between two users</td>
+  			</tr>
+        <tr>
+  				<td>k!chuck</td>
+  				<td>Get a random Chuck Norris Joke</td>
+  			</tr>
+  			<tr>
+  				<td>k!year</td>
+  				<td>Shows the progress of the current year</td>
+  			</tr>
+  			<tr>
+  				<td>k!translate [language] [text]</td>
+  				<td>Translates the text into the given language</td>
+  			</tr>
+        <tr>
+  				<td>k!hotdog [user]</td>
+  				<td>Transforms a user into a hotdog</td>
+  			</tr>
+			  <tr>
+  				<td>k!wanted [user]</td>
+  				<td>Creates a wanted poster with the given user.</td>
+  			</tr>
+        <tr>
+  				<td>k!stats [user]</td>
+  				<td>Show the game stats of a user</td>
+  			</tr>
+        <tr>
+  				<td>k!21</td>
+  				<td>Create a 21 or Mia lobby to play in discord</td>
+  			</tr>
+        <tr>
+  				<td>k!minesweeper</td>
+  				<td>Play minesweeper in Discord</td>
+  			</tr>
+  		</table>
+  		<span id="music">Music</span>
+  		<table class="content-table">
+        <thead>
+  				<th>Command</th>
+  				<th>Description</th>
+  			</thead>
+  			<tr>
+  				<td>k!join / k!play</td>
+  				<td>Makes the bot join your voice-channel</td>
+  			</tr>
+  			<tr>
+  				<td>k!play [song/playlist]</td>
+  				<td>Adds the song to the queue</td>
+  			</tr>
+  			<tr>
+  				<td>k!queue</td>
+  				<td>Shows the queue</td>
+  			</tr>
+  			<tr>
+  				<td>k!track</td>
+  				<td>Provides information about the current song</td>
+  			</tr>
+        <tr>
+  				<td>k!skip</td>
+  				<td>Skips the current song</td>
+  			</tr>
+        <tr>
+  				<td>k!pause</td>
+  				<td>Pauses/Unpauses the music</td>
+  			</tr>
+  			<tr>
+  				<td>k!loop</td>
+  				<td>Loops the queue or only the current song</td>
+  			</tr>
+  			<tr>
+  				<td>k!shuffle</td>
+  				<td>Mixes the queue</td>
+  			</tr>
+  			<tr>
+  				<td>k!bassboost</td>
+  				<td>Choose how much the bass should be boosted</td>
+  			</tr>
+  			<tr>
+  				<td>k!stop</td>
+  				<td>Stops the music</td>
+  			</tr>
+        <tr>
+  				<td>k!lyrics</td>
+  				<td>Get the lyrics of the current song</td>
+  			</tr>
+  		</table>
+      <span id="ticket">Reaction-Commands</span>
+      <table class="content-table">
+        <thead>
+  				<th>Command</th>
+  				<th>Description</th>
+  			</thead>
+  			<tr>
+  				<td>k!ticket</td>
+  				<td>Starts the setup process for the Ticket-Manager</td>
+  			</tr>
+			<tr>
+  				<td>k!ticket</td>
+  				<td>Shows the currently open tickets, if it's already setup</td>
+  			</tr>
+			<tr>
+  				<td>k!ticket setup</td>
+  				<td>Starts another setup process to make more Ticket-Managers</td>
+  			</tr>
+			<tr>
+  				<td>k!ticket add <ticketNumber> [user]</td>
+  				<td>Adds a user to the ticket</td>
+  			</tr>
+			<tr>
+  				<td>k!ticket remove <ticketNumber> [user]</td>
+  				<td>Removes a user from the ticket</td>
+  			</tr>
+			<tr>
+  				<td>k!ticket close <ticketNumber></td>
+  				<td>Closes a ticket</td>
+  			</tr>
+  		</table>
+      <span id="invite">Invite-Manager</span>
+      <table class="content-table">
+        <thead>
+  				<th>Command</th>
+  				<th>Description</th>
+  			</thead>
+  			<tr>
+  				<td>k!invitemanager</td>
+  				<td>Manage the settings of your Invite-Manager</td>
+  			</tr>
+        <tr>
+  				<td>k!bonus add [user]</td>
+          <td>Gives a user a bonus invite</td>
+        </tr>
+        <tr>
+  				<td>k!bonus remove [user]</td>
+          <td>Removes a bonus invite from a user</td>
+        </tr>
+        <tr>
+          <td>k!bonus clear [user]</td>
+          <td>Clears all bonus invites from a user</td>
+  			</tr>
+  		</table>
+  		<span id="moderation">Moderation</span>
+  		<table class="content-table">
+        <thead>
+  				<th>Command</th>
+  				<th>Description</th>
+  			</thead>
+  			<tr>
+  				<td>k!check</td>
+  				<td>Checks for missing permissions</td>
+  			</tr>
+  			<tr>
+  				<td>k!clear [amount]</td>
+  				<td>Deletes the given amount of messages</td>
+  			</tr>
+        <tr>
+  				<td>k!kick [user] [reason]</td>
+  				<td>Kicks a user from the server</td>
+  			</tr>
+        <tr>
+  				<td>k!ban [user] [reason]</td>
+  				<td>Bans a user from the server</td>
+  			</tr>
+        <tr>
+  				<td>k!mute [user] [duration] [reason]</td>
+  				<td>Mutes a user from the chat</td>
+  			</tr>
+  			<tr>
+  				<td>k!warn [user] [reason]</td>
+  				<td>Gives a user a warning</td>
+  			</tr>
+        <tr>
+  				<td>k!warns [user]</td>
+  				<td>Shows the warnings of a certain user</td>
+  			</tr>
+        <tr>
+  				<td>k!softban [user] [duration] [reason]</td>
+  				<td>Bans a user softly from the server (loses access to all channels, but stays on the server)</td>
+  			</tr>
+  		</table>
+  		<span id="settings">Settings</span>
+  		<table class="content-table">
+        <thead>
+  				<th>Command</th>
+  				<th>Description</th>
+  			</thead>
+  			<tr>
+  				<td>k!settings</td>
+  				<td>Shows the current settings</td>
+  			</tr>
+  			<tr>
+  				<td>k!settings prefix</td>
+  				<td>Change the prefix to whatever suits you the best</td>
+  			</tr>
+  			<tr>
+  				<td>k!settings language</td>
+  				<td>Change the bot's language or request a new language for the bot</td>
+  			</tr>
+  			<tr>
+  				<td>k!settings modrole</td>
+  				<td>Manage the modroles</td>
+  			</tr>
+			<tr>
+  				<td>k!settings modlog</td>
+  				<td>Manage the modlogs</td>
+  			</tr>
+			<tr>
+  				<td>k!settings blacklist</td>
+  				<td>Manage the blacklisted channels</td>
+  			</tr>
+  			<tr>
+  				<td>k!settings creator</td>
+  				<td>Manage the auto-talk-creators</td>
+  			</tr>
+  			<tr>
+  				<td>k!settings counter</td>
+  				<td>Manage the member-counters</td>
+  			</tr>
+  		</table>
+  		<span id="util">Utilities</span>
+  		<table class="content-table">
+        <thead>
+  				<th>Command</th>
+  				<th>Description</th>
+  			</thead>
+  			<tr>
+  				<td>k!server</td>
+  				<td>Get information about the server you're on</td>
+  			</tr>
+  			<tr>
+  				<td>k!count</td>
+  				<td>Count the server's users</td>
+  			</tr>
+  			<tr>
+  				<td>k!user [user]</td>
+  				<td>Get further information about a user</td>
+  			</tr>
+        <tr>
+  				<td>k!calender [user/entry]</td>
+  				<td>Get a user's birthday or an entry, if it's in the database</td>
+  			</tr>
+        <tr>
+  				<td>k!calender add [user/entry] [date]</td>
+  				<td>Add a user's birthday or an entry to the database</td>
+  			</tr>
+        <tr>
+  				<td>k!calender remove [user/entry]</td>
+  				<td>Remove a user's birthday or an entry from the database</td>
+  			</tr>
+        <tr>
+  				<td>k!calender config</td>
+  				<td>Configurate the calender</td>
+  			</tr>
+  			<tr>
+  				<td>k!ping</td>
+  				<td>Check the bot's response time(if it takse too long for a response)</td>
+  			</tr>
+  			<tr>
+  				<td>k!uptime</td>
+  				<td>Get the bot's uptime</td>
+  			</tr>
+  			<tr>
+  				<td>k!invite</td>
+  				<td>Get an invite link for the bot, to put Katharina on your server</td>
+  			</tr>
+  			<tr>
+  				<td>k!feedback [feedback]</td>
+  				<td>Give us feedback what you think about the bot or request new features</td>
+  			</tr>
+  		</table>
+    </section>
+
+    <!-- footer section -->
+
+    <footer>
+      <span><a href="/imprint">Imprint</a> | <span class="far fa-copyright"></span> 2020-2021 All rights reserved.</span>
+    </footer>
+  </div>
+  <script src="/katharina/styling/script.js"> </script>
+  </body>
+</html>

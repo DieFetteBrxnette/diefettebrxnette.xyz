@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/katharina/fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/katharina/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/katharina/fav/favicon-16x16.png">
+    <link rel="manifest" href="/katharina/fav/site.webmanifest">
+    <link rel="mask-icon" href="/katharina/fav/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/katharina/fav/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katharina | Minesweeper</title>
+    <link rel="stylesheet" href="/katharina/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <style>
+      .page-container{
+        position: relative;
+        min-height: 100vh;
+      }
+      section{
+        padding-bottom: 4rem;
+      }
+      footer{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 4rem;
+      }
+      .inputField{
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="nav-wrapper">
+        <nav>
+            <input type="checkbox" id="show-navbar">
+            <label for="show-navbar" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <div class="nav-content">
+              <div class="logo"><a href="/katharina/">Katharina</a></div>
+              <ul class="links">
+                <li><a href="/katharina/">Home</a></li>
+                <li><a href="/katharina/#about">About</a></li>
+                <li><a href="/katharina/#commands">Commands</a></li>
+                <li><a href="/katharina/#partners">Partner</a></li>
+                <li><a href="/katharina/#contact">Contact</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <section>
+          <p>CSS is overrated but Katharina is underrated lmao. <br><br>
+
+      		First up: 21 or Mia Basics<br>
+          Please just read <a href="https://en.wikipedia.org/wiki/Mia_(game)">Wikipedia's explanation</a> they are doing a great job in explaining it simple</a>
+
+      		Note: Due to the fact, that this game is a simple game often played in pubs and bars, there are a lot of different versions.<br>In our version you are allowed to lie bellow the correct throw, have only 5 lives, can reroll the dices once in your turn, have to be higher than the number before you (not equal).
+      		<br><br>
+      		How to play it in discord using Katharina:
+      		After creating a lobby using k!21, everyone on the server can join it by pressing &#9989;.
+          As soon as there is one other player the host can start the game by reacting with &#127383;.
+          The bot will then generate a random player order and the first one begins.<br>
+          Your turn consists out of 3 steps:<br>
+          1. Decide whether the player before you lied or not (if you are the first one of the round, this step gets skipped)<br>
+              This move can have 4 outcomes, depending on what you decide:<br>
+              a) You mark it as correct (&#9989;): It's your turn. No one gets a minus point, the round continues and you roll the dices. The correct result wont't be shown.<br>
+              b) You accept it as a loss (&#127987;&#65039;): It's your turn. You get a minus point, start a new round and roll the dices. The correct result won't be shown.<br>
+              c) You don't believe it (&#10060;) & the result is correct: It's your turn. You get a minus point, start a new round and roll the dices. The correct result will be shown.<br>
+              d) You don't believe it (&#10060;) & the result is incorrect: It's the player before you has to turn again. The player before you gets a minus point, starts a new round and rolls the dices. The correct result will be shown.<br>
+          2. You roll the dices by pressing	&#127922;, you have 0 influence on the result<br>
+          3. You decide your call. You now have to decide, if you lie to get above the number before you or just to make it harder for the next one, or if you say the truth. You decide what to send by writing the number in the private chat with Katharina<br>
+          Alternatively you can re-roll the dices by pressing on the &#127922; on the message of your result. After doing this no one knows what your true result is and you automatically submit "higher than before me" as a result.<br>
+          Example: Higher than 31 = 32, Higher than 43 = 51, Higher than 44 = 55, Higher than 21 = 21.<br><br>
+          After you finished the it's the next player's turn. We recommend chatting in a voice-channel while playing. You can use a Talk-Creator from Katharina for this purpose :)<br><br>
+      		If you find any sort of typo or bug or just don't understand anything, feel free <a href= "/katharina/join-now">in our Discord</a>.</p>
+        </section>
+        <footer>
+          <span><a href="/imprint">Imprint</a> | <span class="far fa-copyright"></span> 2020-2021 All rights reserved.</span>
+        </footer>
+      </div>
+      <script src="/katharina/src/script.js"> </script>
+		</body>
+</html>

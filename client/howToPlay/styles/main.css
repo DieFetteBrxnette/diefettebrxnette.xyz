@@ -1,0 +1,9 @@
+main{
+  overflow: scroll;
+  margin-left: 6rem;
+}
+
+img{
+  max-height: 158px;
+  max-width: 243.25px;
+}

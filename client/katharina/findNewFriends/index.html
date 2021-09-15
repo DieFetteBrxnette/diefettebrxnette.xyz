@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/katharina/fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/katharina/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/katharina/fav/favicon-16x16.png">
+    <link rel="manifest" href="/katharina/fav/site.webmanifest">
+    <link rel="mask-icon" href="/katharina/fav/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katharina | Find new friends</title>
+    <link rel="stylesheet" href="/katharina/style.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+    <style>
+      .page-container{
+        position: relative;
+        min-height: 100vh;
+      }
+      section{
+        padding-bottom: 4rem;
+      }
+      footer{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 4rem;
+      }
+      .inputField{
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="nav-wrapper">
+        <nav>
+            <input type="checkbox" id="show-navbar">
+            <label for="show-navbar" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <div class="nav-content">
+              <div class="logo"><a href="/katharina/">Katharina</a></div>
+              <ul class="links">
+                <li><a href="/katharina/">Home</a></li>
+                <li><a href="/katharina/#about">About</a></li>
+                <li><a href="/katharina/#commands">Commands</a></li>
+                <li><a href="/katharina/#partners">Partner</a></li>
+                <li><a href="/katharina/#contact">Contact</a></li>
+              </ul>
+            </div>
+          </nav>
+      </div>
+  	<section>
+  	  <p>Here is the correct format, copy it, fill out the gaps with your personal information, and start finding new friends :)</p>
+  	   <a>Name:<br>
+  	   Age:<br>
+  	   Country:<br>
+  	   Hobbies:<br>
+  	   Anything else:
+  	   </a>
+  	  <div class="tooltip">
+        <button onclick="myFunction()">
+          Copy text
+        </button>
+        <input class="inputField" id="input" type="text" value="Name:
+  	     Age:
+  	     Country:
+  	     Hobbies:
+  	     Anything else:"/>
+      </div>
+    </section>
+    <footer>
+      <span><a href="/imprint">Imprint</a> | <span class="far fa-copyright"></span> 2020-2021 All rights reserved.</span>
+    </footer>
+  </div>
+	<script>
+    function myFunction() {
+      var copyText = document.getElementById("input")
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    }
+  </script>
+</html>

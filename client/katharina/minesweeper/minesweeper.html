@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/katharina/fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/katharina/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/katharina/fav/favicon-16x16.png">
+    <link rel="manifest" href="/katharina/fav/site.webmanifest">
+    <link rel="mask-icon" href="/katharina/fav/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/katharina/fav/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katharina | Minesweeper</title>
+    <link rel="stylesheet" href="/katharina/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <style>
+      .page-container{
+        position: relative;
+        min-height: 100vh;
+      }
+      section{
+        padding-bottom: 4rem;
+      }
+      footer{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 4rem;
+      }
+      .inputField{
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="nav-wrapper">
+        <nav>
+            <input type="checkbox" id="show-navbar">
+            <label for="show-navbar" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <div class="nav-content">
+              <div class="logo"><a href="/katharina/">Katharina</a></div>
+              <ul class="links">
+                <li><a href="/katharina/">Home</a></li>
+                <li><a href="/katharina/#about">About</a></li>
+                <li><a href="/katharina/#commands">Commands</a></li>
+                <li><a href="/katharina/#partners">Partner</a></li>
+                <li><a href="/katharina/#contact">Contact</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <section>
+          <p>CSS is overrated but Katharina is underrated lmao. <br><br>
+
+      		First up: Minesweeper Basics<br>
+      		Your goal is to open up all numbers on the board, but be careful not to hit a bomb or you will lose.<br>
+      		Every number you open up helps you not to hit a bomb, because the number stands for the amount of bombs near its field.<br>
+      		For example: The number of a field is 3, so there are three bombs within the eight fields around it.
+      		Note: You cannot lose with your first turn, so it doesn't matter which field you open up at first.
+      		If you still don't understand the game, read <a href="https://en.wikipedia.org/wiki/Minesweeper_(video_game)">Wikipedia's explanation</a> or <a href= "diefettebrxnette.xyz/join-now">join our Discord</a>
+      		<br><br>
+      		How to play it in discord using Katharina:
+      		The board generates as usual, but you have to select a field by writing it's coordinate in chat.<br>
+      		A coordinate consists out of the column and the row of the field. A valid field starts with the letter and ends with the number, if there's a space between these two doesn't matter.<br>
+      		You will see, that your field is valid, because Katharina reacts to it with upto four reactions.<br>
+      		A blue, red and yellow field and a red x.<br>
+      		If you react with the<br>
+      		- blue field, you will open up the field and may get a new number or lose the game because you open up a bomb. You have to risk it, otherwise you won't be able to win.<br>
+      		- red field, you mark the field as a bomb, this is just a reminder for you and does not affect the game<br>
+      		- yellow field, you mark the field for later, if you're unsure about the field being a bomb or a number.<br>
+      		- red x, you undo the selection and can select a new field.<br>
+
+      		If you find any sort of typo or bug or just don't understand anything, feel free <a href= "diefettebrxnette.xyz/join-now">in our Discord</a>.</p>
+        </section>
+        <footer>
+          <span><a href="/imprint">Imprint</a> | <span class="far fa-copyright"></span> 2020-2021 All rights reserved.</span>
+        </footer>
+      </div>
+      <script src="/katharina/src/script.js"> </script>
+		</body>
+</html>
