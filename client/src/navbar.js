@@ -6,13 +6,13 @@ const themeMap = {
 
 const theme = localStorage.getItem('theme')
   || (tmp = Object.keys(themeMap)[0],
-      localStorage.setItem('theme', tmp),
-      tmp);
+    localStorage.setItem('theme', tmp),
+    tmp);
 const bodyClass = document.body.classList;
 bodyClass.add(theme);
 displayImage(theme);
 
-function displayImage(next){
+function displayImage(next) {
   const darkMode = document.getElementById('darkModeImage');
   const lightMode = document.getElementById('lightModeImage');
   if (lightMode == null) {
@@ -21,7 +21,7 @@ function displayImage(next){
   if (next == "light") {
     darkMode.style.display = "none";
     lightMode.style.display = "block";
-  }else if(next == "solar" || next == "dark"){
+  } else if (next == "solar" || next == "dark") {
     darkMode.style.display = "block";
     lightMode.style.display = "none";
   }

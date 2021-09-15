@@ -9,7 +9,7 @@ class InteractiveChatbox {
     }
 
     display() {
-        const {button, chatbox} = this.args;
+        const { button, chatbox } = this.args;
 
         button.addEventListener('click', () => this.toggleState(chatbox))
     }
@@ -20,7 +20,7 @@ class InteractiveChatbox {
     }
 
     showOrHideChatBox(chatbox, button) {
-        if(this.state) {
+        if (this.state) {
             chatbox.style.display = 'flex';
             chatbox.classList.add('chatbox--active')
         } else if (!this.state) {
