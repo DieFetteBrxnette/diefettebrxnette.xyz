@@ -10,7 +10,7 @@ if (window.innerWidth < 600) {
   document.getElementById('initialScreen').style.display = 'none';
   document.getElementById('chatbox-button').style.display = 'none';
   sock = null;
-}else{
+} else {
   document.getElementById('mobileScreen').style.display = 'none';
   document.getElementById('initialScreen').style.display = 'flex';
   document.getElementById('chatbox-button').style.display = 'block';
@@ -38,7 +38,7 @@ chatbox.display();
 const dragAndDropWrapper = document.getElementById('item-wrapper');
 const sortable = new Sortable(dragAndDropWrapper, {
   animation: 250,
-  onEnd: function(evt){
+  onEnd: function (evt) {
     sock.emit('itemSwap', evt.oldIndex, evt.newIndex, evt.item.id);
   }
 });
@@ -68,14 +68,14 @@ const writeMessage = (text, isOwn) => {
 
   if (isOwn) {
     el.className = "messages__item messages__item--operator";
-  }else {
+  } else {
     el.className = "messages__item messages__item--visitor";
   }
   parent.appendChild(el);
 }
 
 //Event: Message sent
-const onFormSubmitted = (e) =>{
+const onFormSubmitted = (e) => {
   e.preventDefault();
   //submit chatmsg to server and clear input
   const input = document.querySelector('.chat-write');
@@ -99,7 +99,7 @@ sock.on('message', (text, sockClient) => {
 //game system
 
 //check if given name is too long/contains something bad
-function checkUserName(userName){
+function checkUserName(userName) {
   if (userName.length > 16) {
     alertOut(null, "Invalid Username", "Name can not be longer than 16 chars", true);
     return false;
@@ -116,38 +116,38 @@ function checkUserName(userName){
 }
 
 //create a new game lobby
-function newGame(){
+function newGame() {
   let userName = gameNameInput.value;
   if (checkUserName(userName)) {
     if (userName === "") {
       userName = "$guest";
     }
     sock.emit('newGame', userName);
-  }else{
+  } else {
     gameNameInput.value = "";
   }
 }
 
 //join an existing game
-function joinGame(){
+function joinGame() {
   let userName = gameNameInput.value;
-  if(checkUserName(userName)){
+  if (checkUserName(userName)) {
     if (userName === "") {
       userName = "$guest";
     }
     const code = gameCodeInput.value;
-    if(code == ""){
+    if (code == "") {
       sock.emit('newGame', userName);
-    }else{
+    } else {
       sock.emit('joinGame', code, userName);
     }
-  }else{
+  } else {
     gameNameInput.value = "";
   }
 }
 
 //create all the necessary shitty classes for css so it doesn't look like crap
-function addUserToDisplay(userName, userNumb, userImg, userColor, animate){
+function addUserToDisplay(userName, userNumb, userImg, userColor, animate) {
 
   //nice other function that mapps the usernumb to a name as they join:)
   players[userNumb] = userName;
@@ -181,7 +181,7 @@ function addUserToDisplay(userName, userNumb, userImg, userColor, animate){
   nameLabel.id = `userName-${userNumb}`;
   if (userNumb == playerNumb) {
     nameLabel.innerHTML = userName + " (You)";
-  }else{
+  } else {
     nameLabel.innerHTML = userName;
   }
 
@@ -197,7 +197,7 @@ function addUserToDisplay(userName, userNumb, userImg, userColor, animate){
   }
 }
 
-function init(name, previousClients, privateGame){
+function init(name, previousClients, privateGame) {
 
   document.getElementById('userList').innerHTML = '';
   document.getElementById('readyUpBtn').style.display = 'inline-block';
@@ -212,20 +212,20 @@ function init(name, previousClients, privateGame){
   let prevColor;
 
   for (var i = 0; i < previousClients.length; i++) {
-      prevColor = previousClients[i].color;
-      prevName = previousClients[i].name;
-      prevNumb = previousClients[i].numb;
-      if (previousClients[i].img == null) {
-        prevImg = "https://diefettebrxnette.xyz/images/hwLogo.png";
-      }else{
-        prevImg = previousClients[i].img;
-      }
+    prevColor = previousClients[i].color;
+    prevName = previousClients[i].name;
+    prevNumb = previousClients[i].numb;
+    if (previousClients[i].img == null) {
+      prevImg = "https://diefettebrxnette.xyz/images/hwLogo.png";
+    } else {
+      prevImg = previousClients[i].img;
+    }
 
-      if (userName == previousClients[i].name) {
-        userColor = previousClients[i].color;
-      }
+    if (userName == previousClients[i].name) {
+      userColor = previousClients[i].color;
+    }
 
-      addUserToDisplay(prevName, prevNumb, prevImg, prevColor, false);
+    addUserToDisplay(prevName, prevNumb, prevImg, prevColor, false);
   }
   //display correct state of the private game button
   if (privateGame) {
@@ -235,7 +235,7 @@ function init(name, previousClients, privateGame){
   //switch ready up button with start game button
   if (playerNumb == 1) {
     document.getElementById('readyUpBtn').style.display = "none";
-  }else{
+  } else {
     document.getElementById('startGameBtn').style.display = "none";
   }
 
@@ -245,7 +245,7 @@ function init(name, previousClients, privateGame){
 }
 
 //init the gamescreen
-function startGame(){
+function startGame() {
   const c = canvas.getContext('2d');
   canvas.width = 1400;
   canvas.height = 800;
@@ -257,34 +257,34 @@ function startGame(){
 //key listener
 function gameLoop() {
   if (roomName != null) {
-    if (keyState[37] || keyState[65]){
-       if (!document.getElementById('chatbox').classList.contains('chatbox--active')) {
-         sock.emit("clientBtnPressed", "leftBtn", playerNumb);
-       }
+    if (keyState[37] || keyState[65]) {
+      if (!document.getElementById('chatbox').classList.contains('chatbox--active')) {
+        sock.emit("clientBtnPressed", "leftBtn", playerNumb);
+      }
     }
-    if (keyState[39] || keyState[68]){
-        if (!document.getElementById('chatbox').classList.contains('chatbox--active')) {
-          sock.emit("clientBtnPressed", "rightBtn", playerNumb);
-        }
+    if (keyState[39] || keyState[68]) {
+      if (!document.getElementById('chatbox').classList.contains('chatbox--active')) {
+        sock.emit("clientBtnPressed", "rightBtn", playerNumb);
+      }
     }
     if (keyState[87] || keyState[38]) {
-        if (!document.getElementById('chatbox').classList.contains('chatbox--active')) {
-          if (!timeouted) {
-            timeouted = true;
-            sock.emit("clientBtnPressed", "abilityBtn", playerNumb);
-            setTimeout(() =>{
-              timeouted = false;
-            }, 500);
-          }
-
+      if (!document.getElementById('chatbox').classList.contains('chatbox--active')) {
+        if (!timeouted) {
+          timeouted = true;
+          sock.emit("clientBtnPressed", "abilityBtn", playerNumb);
+          setTimeout(() => {
+            timeouted = false;
+          }, 500);
         }
+
+      }
     }
     setTimeout(gameLoop, 10);
   }
 }
 
 //reset browser for new game
-function reset(){
+function reset() {
   roomName = null;
   playerNumb = null;
   userName = null;
@@ -306,7 +306,7 @@ function reset(){
 }
 
 //start the lobby
-sock.on('init', (numb, room, userName, clients, privateGame) =>{
+sock.on('init', (numb, room, userName, clients, privateGame) => {
   playerNumb = numb;
   gameCodeDisplay.innerText = room;
   roomName = room;
@@ -315,7 +315,7 @@ sock.on('init', (numb, room, userName, clients, privateGame) =>{
 });
 
 //display countdown for round start
-sock.on('startCountDown', (players, currentRound) =>{
+sock.on('startCountDown', (players, currentRound) => {
 
   document.getElementById('gameScreen').style.display = "flex";
   document.getElementById('shopScreen').style.display = "none";
@@ -336,7 +336,7 @@ sock.on('startCountDown', (players, currentRound) =>{
   displayCountDown(countDownNumb, currentRound, players);
 });
 
-function displayGamePlayers(players){
+function displayGamePlayers(players) {
   const list = document.getElementById('gameUserList');
   for (var i = 0; i < players.length; i++) {
     const user = document.createElement('div');
@@ -347,7 +347,7 @@ function displayGamePlayers(players){
 
     if (players[i].numb == playerNumb) {
       username.innerHTML = players[i].name + " (You)";
-    }else{
+    } else {
       username.innerHTML = players[i].name;
     }
 
@@ -368,13 +368,13 @@ function displayGamePlayers(players){
 }
 
 //start animating countdown
-function displayCountDown(countDownNumb, currentRound, players){
-  setTimeout(function(){
+function displayCountDown(countDownNumb, currentRound, players) {
+  setTimeout(function () {
     if (countDownNumb != 3) {
-      const prevCountDownNumbDisplay = document.getElementById(`countDownNumb-${countDownNumb+1}`);
+      const prevCountDownNumbDisplay = document.getElementById(`countDownNumb-${countDownNumb + 1}`);
       prevCountDownNumbDisplay.style.display = 'none';
     }
-    if(countDownNumb != 0){
+    if (countDownNumb != 0) {
       const countDownNumbDisplay = document.getElementById(`countDownNumb-${countDownNumb}`);
       countDownNumbDisplay.style.display = 'flex';
       countDownNumbDisplay.classList.add('scale-in-center');
@@ -390,11 +390,11 @@ function displayCountDown(countDownNumb, currentRound, players){
 }
 
 //handle some errors from the server
-sock.on('unknownGame', () =>{
+sock.on('unknownGame', () => {
   reset();
   alertOut(null, "Unknown game code", "Given game was not found", true);
   document.getElementById('gameCodeInput').classList.add('shake-horizontal');
-  setTimeout(() =>{
+  setTimeout(() => {
     document.getElementById('gameCodeInput').classList.remove('shake-horizontal');
   }, 500);
 });
@@ -403,22 +403,22 @@ sock.on('tooManyPlayers', (numClients) => {
   reset();
   alertOut(null, "Game full", `Maximum count of ${numClients} is reached`, true);
   document.getElementById('gameCodeInput').classList.add('shake-horizontal');
-  setTimeout(() =>{
+  setTimeout(() => {
     document.getElementById('gameCodeInput').classList.remove('shake-horizontal');
   }, 500);
 });
 
-sock.on('gameAlreadyStarted', () =>{
+sock.on('gameAlreadyStarted', () => {
   reset();
   alertOut(null, "Game already Started", "Game is already running", true);
   document.getElementById('gameCodeInput').classList.add('shake-horizontal');
-  setTimeout(() =>{
+  setTimeout(() => {
     document.getElementById('gameCodeInput').classList.remove('shake-horizontal');
   }, 500);
 });
 
 //user joined lobby
-sock.on('userInit', (numb, userName, userImg, userColor, userCount) =>{
+sock.on('userInit', (numb, userName, userImg, userColor, userCount) => {
   if (userImg == null) {
     userImg = "https://diefettebrxnette.xyz/images/xmasLogo.png";
   }
@@ -428,7 +428,7 @@ sock.on('userInit', (numb, userName, userImg, userColor, userCount) =>{
 });
 
 //start the game
-sock.on('startGame', (currentRound, rounds, players) =>{
+sock.on('startGame', (currentRound, rounds, players) => {
   document.getElementById('currentRoundCountDisplay').innerHTML = currentRound;
   document.getElementById('allRoundCountDisplay').innerHTML = '/' + rounds;
   document.getElementById('readyUpBtn').style.display = 'inline-block';
@@ -444,17 +444,17 @@ sock.on('startGame', (currentRound, rounds, players) =>{
 sock.on('gameStateUpdate', (players) => {
   players.forEach((player, i) => {
     updatePlayerPos(player);
-    if (player.lastPos.length>0) {
+    if (player.lastPos.length > 0) {
       redrawHolePos(player);
     }
-    if (player.makeHole.length>0) {
+    if (player.makeHole.length > 0) {
       redrawShootHolePos(player);
     }
   });
 });
 
 //player died
-sock.on('playerDied', (numb, playerPlace) =>{
+sock.on('playerDied', (numb, playerPlace) => {
   if (playerNumb == numb) {
     playerDiedAnimation(playerPlace);
   }
@@ -465,7 +465,7 @@ sock.on('playerDied', (numb, playerPlace) =>{
 });
 
 //update all player poses
-function updatePlayerPos(player){
+function updatePlayerPos(player) {
   c.beginPath();
   c.arc(player.coords.x, player.coords.y, player.
     radius, 0, Math.PI * 2, false);
@@ -474,11 +474,11 @@ function updatePlayerPos(player){
 }
 
 //show where ur facings
-function drawDirection(player){
+function drawDirection(player) {
   const icon = document.getElementById(`userListIconDisplay-${player.numb}`);
   icon.innerHTML = `<i class="fas fa-check" id="userListIcon-${player.numb}"></i>`;
   document.getElementById(`userListIcon-${player.numb}`).style.color = 'green';
-  for (var i = 0; i <10; i++) {
+  for (var i = 0; i < 10; i++) {
     player.color = "grey";
     player.radius = 1.5;
     player.coords.x = player.coords.x + (player.coords.velocity.x * 2);
@@ -488,14 +488,14 @@ function drawDirection(player){
 }
 
 //make holes (randomly generated ones and shot ones)
-function redrawHolePos(player){
+function redrawHolePos(player) {
   c.beginPath();
   c.arc(player.lastPos[0].x, player.lastPos[0].y, player.
-    radius+0.1, 0, Math.PI * 2, false);
+    radius + 0.1, 0, Math.PI * 2, false);
   c.fillStyle = "black";
   c.fill();
 }
-function redrawShootHolePos(player){
+function redrawShootHolePos(player) {
   c.beginPath();
   for (var i = 0; i < player.makeHole.length; i++) {
     c.arc(player.makeHole[i].x, player.makeHole[i].y, 5, 0, Math.PI * 2, false);
@@ -506,7 +506,7 @@ function redrawShootHolePos(player){
 
 
 //start animation when player ded
-function playerDiedAnimation(playerPlace){
+function playerDiedAnimation(playerPlace) {
   const roundDeathAnimation = document.getElementById('roundDeathAnimation');
   roundDeathAnimation.classList.add('slide-in-top');
   roundDeathAnimation.style.display = "flex";
@@ -514,12 +514,12 @@ function playerDiedAnimation(playerPlace){
 }
 
 //start animation on every device when player won
-function playerWonAnimation(playerName){
+function playerWonAnimation(playerName) {
   const roundVictory = document.getElementById('roundVictory');
-  setTimeout(function(){
+  setTimeout(function () {
     document.getElementById('winPointerNumb').classList.add('slide-in-left');
     document.getElementById('winPointerNumb').style.display = "flex";
-    setTimeout(function(){
+    setTimeout(function () {
       roundVictory.classList.add('puff-in-center');
       roundVictory.style.display = "block";
     }, 700);
@@ -532,65 +532,65 @@ function playerWonAnimation(playerName){
 }
 
 //alert something out beautifully :)
-function alertOut(icon, title, subtitle, error){
-    console.log(title);
-    console.log(subtitle);
-    const wrapper = document.querySelector(".toast-wrapper");
-    let timeoutDuration = 0;
-    if (toastTimeout != null) {
-      clearTimeout(toastTimeout);
-      wrapper.classList.remove("show");
-      wrapper.classList.add("hide");
-      timeoutDuration = 400
+function alertOut(icon, title, subtitle, error) {
+  console.log(title);
+  console.log(subtitle);
+  const wrapper = document.querySelector(".toast-wrapper");
+  let timeoutDuration = 0;
+  if (toastTimeout != null) {
+    clearTimeout(toastTimeout);
+    wrapper.classList.remove("show");
+    wrapper.classList.add("hide");
+    timeoutDuration = 400
+  }
+
+  setTimeout(() => {
+    if (wrapper.classList.contains("hide")) {
+      wrapper.classList.remove("hide");
+    }
+    if (icon == null)
+      icon = '<i class="fas fa-exclamation"></i>';
+
+    const toast = document.getElementById('toast');
+    let toastIcon = document.getElementById('toastIcon');
+    toastIcon.innerHTML = icon;
+    document.getElementById('toastTitle').innerHTML = title;
+    document.getElementById('toastSubtitle').innerHTML = subtitle;
+
+    if (error) {
+      toastIcon.style.background = "#e81010";
+      toast.style.borderColor = "#e81010";
+    } else {
+      toastIcon.style.background = "#2ecc71";
+      toast.style.borderColor = "#2ecc71";
     }
 
-    setTimeout(() => {
-      if (wrapper.classList.contains("hide")) {
-        wrapper.classList.remove("hide");
-      }
-      if(icon == null)
-        icon = '<i class="fas fa-exclamation"></i>';
+    wrapper.style.display = "flex";
+    wrapper.classList.add("show");
 
-      const toast = document.getElementById('toast');
-      let toastIcon = document.getElementById('toastIcon');
-      toastIcon.innerHTML = icon;
-      document.getElementById('toastTitle').innerHTML = title;
-      document.getElementById('toastSubtitle').innerHTML = subtitle;
+    closeIcon = wrapper.querySelector(".close-icon");
+    closeIcon.onclick = () => {
+      wrapper.classList.remove("show");
+      wrapper.classList.add("hide");
+      toastTimeout = null;
+      setTimeout(() => {
+        wrapper.style.display = "none";
+      }, 1000);
+    }
 
-      if(error){
-        toastIcon.style.background = "#e81010";
-        toast.style.borderColor = "#e81010";
-      }else{
-        toastIcon.style.background = "#2ecc71";
-        toast.style.borderColor = "#2ecc71";
-      }
-
-      wrapper.style.display = "flex";
-      wrapper.classList.add("show");
-
-      closeIcon = wrapper.querySelector(".close-icon");
-      closeIcon.onclick = ()=>{
-        wrapper.classList.remove("show");
-        wrapper.classList.add("hide");
-        toastTimeout = null;
-        setTimeout(() => {
-          wrapper.style.display = "none";
-        }, 1000);
-      }
-
-      toastTimeout = setTimeout(()=>{
-        wrapper.classList.remove("show");
-        wrapper.classList.add("hide");
-        toastTimeout = null;
-        setTimeout(() => {
-          wrapper.style.display = "none";
-        }, 1000);
-      }, 5000);
-    }, timeoutDuration);
+    toastTimeout = setTimeout(() => {
+      wrapper.classList.remove("show");
+      wrapper.classList.add("hide");
+      toastTimeout = null;
+      setTimeout(() => {
+        wrapper.style.display = "none";
+      }, 1000);
+    }, 5000);
+  }, timeoutDuration);
 }
 
 //create all the shitty elements for a goodlookin scoreboard...
-function displayUserScore(player, index){
+function displayUserScore(player, index) {
   const scoreboardUserList = document.getElementById('scoreboardUserList');
   const scoreboardUser = document.createElement('div');
   scoreboardUser.className = 'scoreboardUser';
@@ -609,7 +609,7 @@ function displayUserScore(player, index){
   playerRank.className = "scoreboardPlace";
   if (index == 1) {
     playerRank.innerHTML = '<i class="fas fa-trophy"></i>';
-  }else{
+  } else {
     playerRank.innerHTML = index + ".";
   }
 
@@ -632,30 +632,30 @@ function displayUserScore(player, index){
 sock.on('itemTooExpensive', (item) => {
   alertOut(null, "Could not buy Item", "Not enough points", true);
   document.getElementById(`buy-${item}`).classList.add('shake-horizontal');
-  setTimeout(() =>{
+  setTimeout(() => {
     document.getElementById(`buy-${item}`).classList.remove('shake-horizontal');
   }, 500);
 });
 
-sock.on('notAllPlayersReady', () =>{
+sock.on('notAllPlayersReady', () => {
   alertOut(null, "Could not start Game", "Not every player is ready", true);
   document.getElementById('startGameBtn').classList.add('shake-horizontal');
-  setTimeout(() =>{
+  setTimeout(() => {
     document.getElementById('startGameBtn').classList.remove('shake-horizontal');
   }, 500);
 });
 
 //small listeners (selfexplanatory)
-sock.on('gameRoundOver', (winnerName, winnerNumb, currentRound, players) =>{
+sock.on('gameRoundOver', (winnerName, winnerNumb, currentRound, players) => {
   players.forEach((player, i) => {
     if (player.numb == playerNumb) {
-      document.getElementById('plusPoints').innerHTML = player.score-score;
+      document.getElementById('plusPoints').innerHTML = player.score - score;
       document.getElementById('totalPoints').innerHTML = player.score;
       score = player.score;
     }
   });
 
-  if(winnerNumb == playerNumb){
+  if (winnerNumb == playerNumb) {
     document.getElementById('roundPosition').innerHTML = 1;
   }
   document.getElementById('roundPlacePoints').style.display = "flex";
@@ -664,7 +664,7 @@ sock.on('gameRoundOver', (winnerName, winnerNumb, currentRound, players) =>{
 
 
 //display shop site and reset some buttons
-sock.on('shopPhaseStarted', function (currentRound, players, abilities, order, countDownNumb){
+sock.on('shopPhaseStarted', function (currentRound, players, abilities, order, countDownNumb) {
   const readyBtn = document.getElementById('readyUpBtn-2');
   document.getElementById('shopPlayersReady').innerHTML = "";
   document.getElementById('readyUpBtn-2').style.display = 'inline-block';
@@ -698,12 +698,12 @@ sock.on('shopPhaseStarted', function (currentRound, players, abilities, order, c
               badge = badge.querySelector('.itemBadge');
               if (badge.innerHTML == 'Owned') {
                 badge.innerHTML = 'Owned (x2)';
-              }else if(badge.innerHTML == 'Owned (x2)'){
+              } else if (badge.innerHTML == 'Owned (x2)') {
                 badge.innerHTML = 'Owned (x3)';
-              }else if(badge.innerHTML == 'Owned (x3)'){
+              } else if (badge.innerHTML == 'Owned (x3)') {
                 badge.innerHTML = 'Owned (x4)';
               }
-            }else{
+            } else {
               badge = document.createElement('div');
               badge.classList.add('ribbon-top-right');
               badge.classList.add('ribbon');
@@ -729,7 +729,7 @@ sock.on('shopPhaseStarted', function (currentRound, players, abilities, order, c
             card.querySelector('.title').innerHTML = 'empty';
           }
         }
-      }else{
+      } else {
         for (var i = 1; i < 5; i++) {
           const card = document.getElementById(`item-card-${i}`);
           card.querySelector('.title').innerHTML = 'empty';
@@ -738,7 +738,7 @@ sock.on('shopPhaseStarted', function (currentRound, players, abilities, order, c
     }
   });
 
-  if (points<150) {
+  if (points < 150) {
     sock.emit('readyUp', roomName, playerNumb, true);
   }
 
@@ -748,32 +748,32 @@ sock.on('shopPhaseStarted', function (currentRound, players, abilities, order, c
   document.getElementById('shopScreen').style.display = "flex";
 
   document.getElementById('shopCountDown').innerHTML = countDownNumb;
-  showCountDown(countDownNumb-1);
+  showCountDown(countDownNumb - 1);
 });
 
 
 //countdown Loop
-function showCountDown(countDownNumb){
+function showCountDown(countDownNumb) {
   if (countDownNumb == 0) {
     return;
   }
-  setTimeout(() =>{
+  setTimeout(() => {
     document.getElementById('shopCountDown').innerHTML = `${countDownNumb}`;
     countDownNumb--;
     showCountDown(countDownNumb);
   }, 1000);
 }
 
-sock.on('inventoryFull', () =>{
+sock.on('inventoryFull', () => {
   alertOut(null, "Could not buy item", "Your inventory is full", true);
 });
 
-sock.on('AbilityOnTimeOut', () =>{
+sock.on('AbilityOnTimeOut', () => {
   alertOut(null, "Could not use item", "You are on cooldown", false);
 });
 
 //small check, that it worked :)
-sock.on('itemBought', (ability, newScore, cardId) =>{
+sock.on('itemBought', (ability, newScore, cardId) => {
   balance = newScore;
   document.getElementById('shopCurrentPoints').innerHTML = balance;
   document.getElementById(`buy-${ability}`).innerHTML = "bought";
@@ -787,12 +787,12 @@ sock.on('itemBought', (ability, newScore, cardId) =>{
     badge = badge.querySelector('.itemBadge');
     if (badge.innerHTML == 'Owned') {
       badge.innerHTML = 'Owned (x2)';
-    }else if(badge.innerHTML == 'Owned (x2)'){
+    } else if (badge.innerHTML == 'Owned (x2)') {
       badge.innerHTML = 'Owned (x3)';
-    }else if(badge.innerHTML == 'Owned (x3)'){
+    } else if (badge.innerHTML == 'Owned (x3)') {
       badge.innerHTML = 'Owned (x4)';
     }
-  }else{
+  } else {
     badge = document.createElement('div');
     badge.classList.add('itemBadge');
     badge.classList.add('ribbon-top-right');
@@ -809,12 +809,12 @@ sock.on('itemBought', (ability, newScore, cardId) =>{
 });
 
 //use ability clear board and reset every line
-sock.on('clearBoard', () =>{
+sock.on('clearBoard', () => {
   startGame();
 });
 
 //handle user leaves
-sock.on('userLeft', (number, inGame) =>{
+sock.on('userLeft', (number, inGame) => {
   playerCount--;
   if (!inGame) {
     document.getElementById('playerCount').innerHTML = `${playerCount}/8`
@@ -823,12 +823,12 @@ sock.on('userLeft', (number, inGame) =>{
       user.classList.remove('jello-vertical');
     }
     user.classList.add('jello-vertical');
-    setTimeout(() =>{
+    setTimeout(() => {
       user.innerHTML = '';
       user.remove();
     }, 700);
 
-  }else{
+  } else {
     const user = document.getElementById(`gameUserName-${number}`);
     user.style.textDecoration = 'line-through';
     user.style.color = 'grey';
@@ -839,7 +839,7 @@ sock.on('userLeft', (number, inGame) =>{
 });
 
 //game has ended, display final scores
-sock.on('gameOver', (playerRanks) =>{
+sock.on('gameOver', (playerRanks) => {
   const scoreboard = document.getElementById('scoreboard');
   playerRanks.forEach((item, i) => {
     displayUserScore(item, i);
@@ -848,33 +848,33 @@ sock.on('gameOver', (playerRanks) =>{
 });
 
 //close lobbys without enough or inactive players
-sock.on('gameClosed', (inGame) =>{
+sock.on('gameClosed', (inGame) => {
   reset();
   if (inGame != null) {
     if (inGame) {
       alertOut('<i class="fas fa-info"></i>', 'Game terminated', 'You were the last active player', false);
-    }else{
+    } else {
       alertOut('<i class="fas fa-info"></i>', 'Lobby closed', 'The host left the lobby', false);
     }
-  }else{
+  } else {
     alertOut('<i class="fas fa-info"></i>', 'Game terminated', 'Something went wrong on the server', false);
   }
 
 });
 
-sock.on('gameTimeOut', () =>{
+sock.on('gameTimeOut', () => {
   reset();
   alertOut('<i class="fas fa-info"></i>', 'Lobby timed out', 'Nothing happened for 5min', false);
 });
 
 //new connection
-sock.on('connectionInit', (newClients, account) =>{
+sock.on('connectionInit', (newClients, account) => {
   clients = newClients;
 
   //Print hello
   if (account) {
-    writeMessage(`Welcome to the global chat! There are currently ${newClients-1} others, have fun :)`, true);
-  }else{
+    writeMessage(`Welcome to the global chat! There are currently ${newClients - 1} others, have fun :)`, true);
+  } else {
     writeMessage(`Please login or signup in order to write in the global chat`, true);
   }
 
@@ -887,94 +887,94 @@ document
   .querySelector('.chat-form')
   .addEventListener('submit', onFormSubmitted);
 
-  var keyState = {};
-  window.addEventListener('keydown',function(e){
-      keyState[e.keyCode || e.which] = true;
-  },true);
-  window.addEventListener('keyup',function(e){
-      keyState[e.keyCode || e.which] = false;
-  },true);
+var keyState = {};
+window.addEventListener('keydown', function (e) {
+  keyState[e.keyCode || e.which] = true;
+}, true);
+window.addEventListener('keyup', function (e) {
+  keyState[e.keyCode || e.which] = false;
+}, true);
 
-  x = 100;
+x = 100;
 
 //adblock checker
 const detect = document.querySelector("#detect");
 let adClasses = ["ad", "ads", "adsbox", "doubleclick", "ad-placement", "ad-placeholder", "adbadge", "BannerAd"];
-for(let item of adClasses){
+for (let item of adClasses) {
   detect.classList.add(item);
 }
 let getProperty = window.getComputedStyle(detect).getPropertyValue("display");
-if(getProperty == "none"){
+if (getProperty == "none") {
   alertOut('<i class="far fa-frown"></i>', "Ad-Blocker detected", "Disable it, in order to use all features", true);
 }
 
 //ensure that no other users except the host changes buttons
-document.getElementById('privateGameSwitch').click(function(event) {
-    var checkbox = (this);
+document.getElementById('privateGameSwitch').click(function (event) {
+  var checkbox = (this);
 
-    // Ensures this code runs AFTER the browser handles click however it wants.
-    if (playerNumb === 1) {
-      return;
-    }else{
-      setTimeout(function() {
-        if (checkbox.is(":checked")) {
-          checkbox.removeAttribute('checked');
-        }else{
-          checkbox.setAttribute('checked', '');
-        }
+  // Ensures this code runs AFTER the browser handles click however it wants.
+  if (playerNumb === 1) {
+    return;
+  } else {
+    setTimeout(function () {
+      if (checkbox.is(":checked")) {
+        checkbox.removeAttribute('checked');
+      } else {
+        checkbox.setAttribute('checked', '');
+      }
 
-      }, 0);
+    }, 0);
 
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    event.preventDefault();
+    event.stopPropagation();
+  }
 });
 
 
 //button registry (selfexplanatory)
-document.getElementById('rematchBtn').onclick = function(){
+document.getElementById('rematchBtn').onclick = function () {
   var room = roomName;
   reset();
-  setTimeout(() =>{
+  setTimeout(() => {
     sock.emit('rematch', userName, userColor);
   }, 500);
 };
 
-document.getElementById('readyUpBtn').onclick = function(){
+document.getElementById('readyUpBtn').onclick = function () {
   sock.emit('readyUp', false);
 };
 
-document.getElementById('readyUpBtn-2').onclick = function(){
+document.getElementById('readyUpBtn-2').onclick = function () {
   sock.emit('readyUp', true);
 };
 
-document.getElementById('buy-slowness').onclick = function(){
+document.getElementById('buy-slowness').onclick = function () {
   sock.emit('buyAbility', 'slowness');
 };
-document.getElementById('buy-teleport').onclick = function(){
+document.getElementById('buy-teleport').onclick = function () {
   sock.emit('buyAbility', 'teleport');
 };
-document.getElementById('buy-speed').onclick = function(){
+document.getElementById('buy-speed').onclick = function () {
   sock.emit('buyAbility', 'speed');
 };
-document.getElementById('buy-shootholes').onclick = function(){
+document.getElementById('buy-shootholes').onclick = function () {
   sock.emit('buyAbility', 'shootholes');
 };
-document.getElementById('buy-curve').onclick = function(){
+document.getElementById('buy-curve').onclick = function () {
   sock.emit('buyAbility', 'curve');
 };
-document.getElementById('buy-cubic').onclick = function(){
+document.getElementById('buy-cubic').onclick = function () {
   sock.emit('buyAbility', 'cubic');
 };
-document.getElementById('buy-clear').onclick = function(){
+document.getElementById('buy-clear').onclick = function () {
   sock.emit('buyAbility', 'clear');
 };
-document.getElementById('buy-randomdeath').onclick = function(){
+document.getElementById('buy-randomdeath').onclick = function () {
   sock.emit('buyAbility', 'randomdeath');
 };
 
 //user is ready (shop phase or waiting room)
-sock.on('readiedUp', (numb, userName, buyphase) =>{
+sock.on('readiedUp', (numb, userName, buyphase) => {
   if (buyphase) {
     if (playerNumb == numb) {
       document.getElementById('readyUpBtn-2').style.display = 'none';
@@ -983,7 +983,7 @@ sock.on('readiedUp', (numb, userName, buyphase) =>{
     const playersReady = document.getElementById('shopPlayersReady');
     playersReady.innerHTML = playersReady.innerHTML + '<i class="far fa-check-circle"></i>';
 
-  }else{
+  } else {
     if (playerNumb == numb) {
       if (playerNumb != 1) {
         document.getElementById('readyUpBtn').style.display = 'none';
@@ -991,7 +991,7 @@ sock.on('readiedUp', (numb, userName, buyphase) =>{
       }
       const userProfile = document.getElementById(`userName-${numb}`);
       userProfile.innerHTML = userName + ' (You) <i class="far fa-check-circle"></i>';
-    }else{
+    } else {
       const userProfile = document.getElementById(`userName-${numb}`);
       if (userProfile == null) {
         return;
@@ -1006,11 +1006,11 @@ sock.on('readiedUp', (numb, userName, buyphase) =>{
 let inputField = document.getElementById("gameCodeDisplay");
 let HTMLButton = document.getElementById("HTMLButton");
 
-document.getElementById("startGameBtn").onclick = function(){
+document.getElementById("startGameBtn").onclick = function () {
   sock.emit('startGameHost', playerNumb);
 };
 
-HTMLButton.onclick = function() {
+HTMLButton.onclick = function () {
   var textArea = document.createElement("textarea");
   textArea.value = inputField.textContent;
   document.body.appendChild(textArea);

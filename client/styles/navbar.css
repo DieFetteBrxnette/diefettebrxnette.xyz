@@ -107,8 +107,7 @@ main {
   transition: var(--transition-speed);
 }
 
-.logo-text
-{
+.logo-text {
   display: inline;
   position: absolute;
   left: -999px;
@@ -160,13 +159,11 @@ main {
     display: inline;
   }
 
-  .navbar:hover .logo i
-  {
+  .navbar:hover .logo i {
     margin-left: 11rem;
   }
 
-  .navbar:hover .logo-text
-  {
+  .navbar:hover .logo-text {
     left: 0px;
   }
 }
