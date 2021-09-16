@@ -1,9 +1,9 @@
-//canvas (PixiJs) setup
+// canvas (PixiJs) setup
 let app = new PIXI.Application({ width: 1400, height: 800 });
 var canvas = document.getElementById("myCanvas");
 var c = canvas.getContext("2d");
 
-//connect to socket.io / disable mobiles
+// connect to socket.io / disable mobiles
 let sock;
 if (window.innerWidth < 600) {
   document.getElementById('mobileScreen').style.display = 'flex';
@@ -17,7 +17,7 @@ if (window.innerWidth < 600) {
   sock = io();
 }
 
-//start/join game Interface
+// start/join game Interface
 const gameScreen = document.getElementById('gameScreen');
 const initialSceen = document.getElementById('initialScreen');
 const newGameBtn = document.getElementById('newGameButton');
@@ -28,13 +28,13 @@ const gameCodeDisplay = document.getElementById('gameCodeDisplay');
 
 newGameBtn.addEventListener('click', newGame);
 
-//Chatbox Interface
+// Chatbox Interface
 const chatButton = document.querySelector('.chatbox__button');
 const chatContent = document.querySelector('.chatbox__support');
 const chatbox = new InteractiveChatbox(chatButton, chatContent);
 chatbox.display();
 
-//register drag and drop api
+// register drag and drop api
 const dragAndDropWrapper = document.getElementById('item-wrapper');
 const sortable = new Sortable(dragAndDropWrapper, {
   animation: 250,
@@ -56,12 +56,12 @@ let playerCount = 0;
 var toastTimeout;
 let timeouted = false;
 
-//chat system
-//write new Message on screen
+// chat system
+// write new Message on screen
 const writeMessage = (text, isOwn) => {
-  //select div
+  // select div
   const parent = document.querySelector('#main-chat');
-  //add item to new div
+  // add item to new div
   const el = document.createElement('div');
 
   el.innerHTML = text;
@@ -74,21 +74,21 @@ const writeMessage = (text, isOwn) => {
   parent.appendChild(el);
 }
 
-//Event: Message sent
+// Event: Message sent
 const onFormSubmitted = (e) => {
   e.preventDefault();
-  //submit chatmsg to server and clear input
+  // submit chatmsg to server and clear input
   const input = document.querySelector('.chat-write');
   const text = input.value;
   input.value = '';
-  //but only if u have an acc registered :)
+  // but only if u have an acc registered :)
   if (account) {
     sock.emit('message', text);
     writeMessage(text, true);
   }
 }
 
-//message recieved
+// message recieved
 sock.on('message', (text, sockClient) => {
   if (account) {
     writeMessage(text, sockClient, sock.id);
@@ -96,9 +96,9 @@ sock.on('message', (text, sockClient) => {
 });
 
 
-//game system
+// game system
 
-//check if given name is too long/contains something bad
+// check if given name is too long/contains something bad
 function checkUserName(userName) {
   if (userName.length > 16) {
     alertOut(null, "Invalid Username", "Name can not be longer than 16 chars", true);
@@ -115,7 +115,7 @@ function checkUserName(userName) {
   return false;
 }
 
-//create a new game lobby
+// create a new game lobby
 function newGame() {
   let userName = gameNameInput.value;
   if (checkUserName(userName)) {
@@ -128,7 +128,7 @@ function newGame() {
   }
 }
 
-//join an existing game
+// join an existing game
 function joinGame() {
   let userName = gameNameInput.value;
   if (checkUserName(userName)) {
@@ -146,10 +146,10 @@ function joinGame() {
   }
 }
 
-//create all the necessary shitty classes for css so it doesn't look like crap
+// create all the necessary shitty classes for css so it doesn't look like crap
 function addUserToDisplay(userName, userNumb, userImg, userColor, animate) {
 
-  //nice other function that mapps the usernumb to a name as they join:)
+  // nice other function that mapps the usernumb to a name as they join:)
   players[userNumb] = userName;
   const playerCountDisplay = document.getElementById('playerCount');
   playerCountDisplay.innerHTML = playerCount + "/8";
@@ -205,7 +205,7 @@ function init(name, previousClients, privateGame) {
   document.getElementById('HTMLButton').innerHTML = 'Copy Code';
   document.getElementById('scoreboardUserList').innerHTML = '';
   userName = name;
-  //display prior joined clients & own client on screen
+  // display prior joined clients & own client on screen
   let prevName;
   let prevNumb;
   let prevImg;
@@ -227,12 +227,12 @@ function init(name, previousClients, privateGame) {
 
     addUserToDisplay(prevName, prevNumb, prevImg, prevColor, false);
   }
-  //display correct state of the private game button
+  // display correct state of the private game button
   if (privateGame) {
     document.getElementById('privateGameSwitch').setAttribute('checked', '');;
   }
 
-  //switch ready up button with start game button
+  // switch ready up button with start game button
   if (playerNumb == 1) {
     document.getElementById('readyUpBtn').style.display = "none";
   } else {
@@ -244,7 +244,7 @@ function init(name, previousClients, privateGame) {
   settingsScreen.style.display = "flex";
 }
 
-//init the gamescreen
+// init the gamescreen
 function startGame() {
   const c = canvas.getContext('2d');
   canvas.width = 1400;
@@ -254,7 +254,7 @@ function startGame() {
   c.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-//key listener
+// key listener
 function gameLoop() {
   if (roomName != null) {
     if (keyState[37] || keyState[65]) {
@@ -283,7 +283,7 @@ function gameLoop() {
   }
 }
 
-//reset browser for new game
+// reset browser for new game
 function reset() {
   roomName = null;
   playerNumb = null;
@@ -305,7 +305,7 @@ function reset() {
   document.getElementById('shopScreen').style.display = "none";
 }
 
-//start the lobby
+// start the lobby
 sock.on('init', (numb, room, userName, clients, privateGame) => {
   playerNumb = numb;
   gameCodeDisplay.innerText = room;
@@ -314,7 +314,7 @@ sock.on('init', (numb, room, userName, clients, privateGame) => {
   init(userName, clients, privateGame);
 });
 
-//display countdown for round start
+// display countdown for round start
 sock.on('startCountDown', (players, currentRound) => {
 
   document.getElementById('gameScreen').style.display = "flex";
@@ -367,7 +367,7 @@ function displayGamePlayers(players) {
   }
 }
 
-//start animating countdown
+// start animating countdown
 function displayCountDown(countDownNumb, currentRound, players) {
   setTimeout(function () {
     if (countDownNumb != 3) {
@@ -389,7 +389,7 @@ function displayCountDown(countDownNumb, currentRound, players) {
   }, 1000);
 }
 
-//handle some errors from the server
+// handle some errors from the server
 sock.on('unknownGame', () => {
   reset();
   alertOut(null, "Unknown game code", "Given game was not found", true);
@@ -417,7 +417,7 @@ sock.on('gameAlreadyStarted', () => {
   }, 500);
 });
 
-//user joined lobby
+// user joined lobby
 sock.on('userInit', (numb, userName, userImg, userColor, userCount) => {
   if (userImg == null) {
     userImg = "https://diefettebrxnette.xyz/images/xmasLogo.png";
@@ -427,7 +427,7 @@ sock.on('userInit', (numb, userName, userImg, userColor, userCount) => {
   addUserToDisplay(userName, numb, userImg, userColor, true);
 });
 
-//start the game
+// start the game
 sock.on('startGame', (currentRound, rounds, players) => {
   document.getElementById('currentRoundCountDisplay').innerHTML = currentRound;
   document.getElementById('allRoundCountDisplay').innerHTML = '/' + rounds;
@@ -440,7 +440,7 @@ sock.on('startGame', (currentRound, rounds, players) => {
   gameLoop();
 });
 
-//update playerStates in Browser
+// update playerStates in Browser
 sock.on('gameStateUpdate', (players) => {
   players.forEach((player, i) => {
     updatePlayerPos(player);
@@ -453,7 +453,7 @@ sock.on('gameStateUpdate', (players) => {
   });
 });
 
-//player died
+// player died
 sock.on('playerDied', (numb, playerPlace) => {
   if (playerNumb == numb) {
     playerDiedAnimation(playerPlace);
@@ -464,7 +464,7 @@ sock.on('playerDied', (numb, playerPlace) => {
   document.getElementById(`userListIcon-${numb}`).style.color = 'red';
 });
 
-//update all player poses
+// update all player poses
 function updatePlayerPos(player) {
   c.beginPath();
   c.arc(player.coords.x, player.coords.y, player.
@@ -473,7 +473,7 @@ function updatePlayerPos(player) {
   c.fill();
 }
 
-//show where ur facings
+// show where ur facings
 function drawDirection(player) {
   const icon = document.getElementById(`userListIconDisplay-${player.numb}`);
   icon.innerHTML = `<i class="fas fa-check" id="userListIcon-${player.numb}"></i>`;
@@ -487,7 +487,7 @@ function drawDirection(player) {
   }
 }
 
-//make holes (randomly generated ones and shot ones)
+// make holes (randomly generated ones and shot ones)
 function redrawHolePos(player) {
   c.beginPath();
   c.arc(player.lastPos[0].x, player.lastPos[0].y, player.
@@ -505,7 +505,7 @@ function redrawShootHolePos(player) {
 }
 
 
-//start animation when player ded
+// start animation when player ded
 function playerDiedAnimation(playerPlace) {
   const roundDeathAnimation = document.getElementById('roundDeathAnimation');
   roundDeathAnimation.classList.add('slide-in-top');
@@ -513,7 +513,7 @@ function playerDiedAnimation(playerPlace) {
   document.getElementById('roundPosition').innerHTML = playerPlace;
 }
 
-//start animation on every device when player won
+// start animation on every device when player won
 function playerWonAnimation(playerName) {
   const roundVictory = document.getElementById('roundVictory');
   setTimeout(function () {
@@ -531,7 +531,7 @@ function playerWonAnimation(playerName) {
   document.getElementById('roundVictoryAnimation').style.display = "flex";
 }
 
-//alert something out beautifully :)
+// alert something out beautifully :)
 function alertOut(icon, title, subtitle, error) {
   console.log(title);
   console.log(subtitle);
@@ -589,7 +589,7 @@ function alertOut(icon, title, subtitle, error) {
   }, timeoutDuration);
 }
 
-//create all the shitty elements for a goodlookin scoreboard...
+// create all the shitty elements for a goodlookin scoreboard...
 function displayUserScore(player, index) {
   const scoreboardUserList = document.getElementById('scoreboardUserList');
   const scoreboardUser = document.createElement('div');
@@ -645,7 +645,7 @@ sock.on('notAllPlayersReady', () => {
   }, 500);
 });
 
-//small listeners (selfexplanatory)
+// small listeners (selfexplanatory)
 sock.on('gameRoundOver', (winnerName, winnerNumb, currentRound, players) => {
   players.forEach((player, i) => {
     if (player.numb == playerNumb) {
@@ -663,7 +663,7 @@ sock.on('gameRoundOver', (winnerName, winnerNumb, currentRound, players) => {
 });
 
 
-//display shop site and reset some buttons
+// display shop site and reset some buttons
 sock.on('shopPhaseStarted', function (currentRound, players, abilities, order, countDownNumb) {
   const readyBtn = document.getElementById('readyUpBtn-2');
   document.getElementById('shopPlayersReady').innerHTML = "";
@@ -752,7 +752,7 @@ sock.on('shopPhaseStarted', function (currentRound, players, abilities, order, c
 });
 
 
-//countdown Loop
+// countdown Loop
 function showCountDown(countDownNumb) {
   if (countDownNumb == 0) {
     return;
@@ -772,7 +772,7 @@ sock.on('AbilityOnTimeOut', () => {
   alertOut(null, "Could not use item", "You are on cooldown", false);
 });
 
-//small check, that it worked :)
+// small check, that it worked :)
 sock.on('itemBought', (ability, newScore, cardId) => {
   balance = newScore;
   document.getElementById('shopCurrentPoints').innerHTML = balance;
@@ -808,12 +808,12 @@ sock.on('itemBought', (ability, newScore, cardId) => {
   document.getElementById(`card-title-${cardId}`).innerHTML = ability;
 });
 
-//use ability clear board and reset every line
+// use ability clear board and reset every line
 sock.on('clearBoard', () => {
   startGame();
 });
 
-//handle user leaves
+// handle user leaves
 sock.on('userLeft', (number, inGame) => {
   playerCount--;
   if (!inGame) {
@@ -838,7 +838,7 @@ sock.on('userLeft', (number, inGame) => {
   }
 });
 
-//game has ended, display final scores
+// game has ended, display final scores
 sock.on('gameOver', (playerRanks) => {
   const scoreboard = document.getElementById('scoreboard');
   playerRanks.forEach((item, i) => {
@@ -847,7 +847,7 @@ sock.on('gameOver', (playerRanks) => {
   scoreboard.style.display = "flex";
 });
 
-//close lobbys without enough or inactive players
+// close lobbys without enough or inactive players
 sock.on('gameClosed', (inGame) => {
   reset();
   if (inGame != null) {
@@ -867,22 +867,22 @@ sock.on('gameTimeOut', () => {
   alertOut('<i class="fas fa-info"></i>', 'Lobby timed out', 'Nothing happened for 5min', false);
 });
 
-//new connection
+// new connection
 sock.on('connectionInit', (newClients, account) => {
   clients = newClients;
 
-  //Print hello
+  // Print hello
   if (account) {
     writeMessage(`Welcome to the global chat! There are currently ${newClients - 1} others, have fun :)`, true);
   } else {
     writeMessage(`Please login or signup in order to write in the global chat`, true);
   }
 
-  //change online count
+  // change online count
   document.querySelector('.clientCount').innerHTML = clients;
 });
 
-//register key down listener for controls
+// register key down listener for controls
 document
   .querySelector('.chat-form')
   .addEventListener('submit', onFormSubmitted);
@@ -897,7 +897,7 @@ window.addEventListener('keyup', function (e) {
 
 x = 100;
 
-//adblock checker
+// adblock checker
 const detect = document.querySelector("#detect");
 let adClasses = ["ad", "ads", "adsbox", "doubleclick", "ad-placement", "ad-placeholder", "adbadge", "BannerAd"];
 for (let item of adClasses) {
@@ -908,7 +908,7 @@ if (getProperty == "none") {
   alertOut('<i class="far fa-frown"></i>', "Ad-Blocker detected", "Disable it, in order to use all features", true);
 }
 
-//ensure that no other users except the host changes buttons
+// ensure that no other users except the host changes buttons
 document.getElementById('privateGameSwitch').click(function (event) {
   var checkbox = (this);
 
@@ -931,7 +931,7 @@ document.getElementById('privateGameSwitch').click(function (event) {
 });
 
 
-//button registry (selfexplanatory)
+// button registry (selfexplanatory)
 document.getElementById('rematchBtn').onclick = function () {
   var room = roomName;
   reset();
@@ -973,7 +973,7 @@ document.getElementById('buy-randomdeath').onclick = function () {
   sock.emit('buyAbility', 'randomdeath');
 };
 
-//user is ready (shop phase or waiting room)
+// user is ready (shop phase or waiting room)
 sock.on('readiedUp', (numb, userName, buyphase) => {
   if (buyphase) {
     if (playerNumb == numb) {
@@ -1002,7 +1002,7 @@ sock.on('readiedUp', (numb, userName, buyphase) => {
 });
 
 
-//copy game code
+// copy game code
 let inputField = document.getElementById("gameCodeDisplay");
 let HTMLButton = document.getElementById("HTMLButton");
 
